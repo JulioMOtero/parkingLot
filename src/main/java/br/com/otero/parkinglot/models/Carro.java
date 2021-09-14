@@ -10,18 +10,15 @@ import javax.persistence.Id;
 @Setter
 @EqualsAndHashCode
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Carro {
 
     @Id
-//    @Column(name = "plate", unique = true, nullable = false)
     private String plate;
     private String brand;
     private String model;
 
-    public Carro(String plate, String brand, String model) {
-        this.plate = plate;
-        this.brand = brand;
-        this.model = model;
-    }
+
 }

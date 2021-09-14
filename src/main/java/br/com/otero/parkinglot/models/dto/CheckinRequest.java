@@ -20,5 +20,7 @@ public class CheckinRequest {
     @NotEmpty
     private String plate;
 
+    
+    private Boolean pagamento;
 
 }

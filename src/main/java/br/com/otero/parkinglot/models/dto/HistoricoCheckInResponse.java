@@ -1,9 +1,15 @@
 package br.com.otero.parkinglot.models.dto;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class HistoricoCheckInResponse {
 
     private Long id;
@@ -14,9 +20,9 @@ public class HistoricoCheckInResponse {
 
     @Override
     public String toString() {
-        return "ChecInResponse{" +
+        return "Historico{" +
                 "id:" + this.id +
-                ", periodo:'" + this.periodo + '\'' +
+                ", periodo:'" + this.periodo + " Minutos" + '\'' +
                 ", pago:" + this.pago +
                 ", checkout:" + this.checkout +
                 '}';

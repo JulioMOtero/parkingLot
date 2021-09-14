@@ -34,31 +34,17 @@ public class CheckinController {
 
     @Transactional
     @PutMapping("/{id}/pay")
-    CheckIn pagamento(final @PathVariable Long id) {
-        return this.checkinService.pagamento(id);
+    void pagamento(final @PathVariable Long id) {
+        this.checkinService.pagamento(id);
     }
 
 
     @Transactional
     @PutMapping("/{id}/checkout")
-    CheckIn checkOut(@RequestBody CheckinRequest updateCheckin) {
-        return this.checkinService.checkOut(updateCheckin);
+    void checkOut(final @PathVariable Long id) {
+        this.checkinService.checkOut(id);
     }
 }/*
 
-  @PutMapping("/employees/{id}")
-  Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
-
-    return repository.findById(id)
-      .map(employee -> {
-        employee.setName(newEmployee.getName());
-        employee.setRole(newEmployee.getRole());
-        return repository.save(employee);
-      })
-      .orElseGet(() -> {
-        newEmployee.setId(id);
-        return repository.save(newEmployee);
-      });
-  }
 
   }*/

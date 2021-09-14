@@ -3,6 +3,7 @@ package br.com.otero.parkinglot.models;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @Entity
+@NoArgsConstructor
 public class CheckIn {
 
     @Id
