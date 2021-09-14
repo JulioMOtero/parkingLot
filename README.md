@@ -1,1 +1,77 @@
 # parkingLot
+
+# Setup
+O Projeto utiliza Lombok, então é necessário ter o plugin na IDE para navegar.
+
+#  Instruções - Teste back-end Java
+
+A construção desse microserviço tem como objetivo avaliar os conhecimentos, código e a organização.
+
+
+## Tecnologias a serem utilizadas:
+
+- Java 8 ou 11
+- Spring Boot
+- JPA
+- GIT
+- Maven
+
+# Definições do projeto
+
+Criar um microserviço para controle de estacionamento, com os seguintes critérios:
+
+  - Deve realizar checkin, checkout e pagamento
+  - Não deve liberar saída sem pagamento
+  - Deve fornecer um histórico por período
+
+##### Endpoints as serem constrúidos: 
+
+## Checkin
+
+POST /parking
+
+Request JSON:
+  { 
+    brand: 'Volkswagen',
+    model: 'Jetta',
+    plate: 'PRV-1234'
+  }
+
+response:
+  { 
+    idCheckin: 1
+  }
+
+Obs: Validar a máscara da placa e retornar um código de reserva.
+
+
+## Checkout
+
+PUT /parking/:id/checkout
+
+Obs: Não deve liberar saída sem pagamento 
+
+## Pagamento
+
+PUT /parking/:id/pay
+
+## Histórico
+
+GET /parking/history
+
+Request params:
+  - startDate
+  - endDate
+
+Response JSON:
+[
+  { id: 1, time: '40 minutos', paid: true, checkout: true }
+]
+
+## Testes
+
+Construir ao menos 2 testes unitários
+
+###### Um PLUS a mais, porém não obrigatório
+
+- Construir um arquivo Swagger Yaml com a estrutura da API a ser desenvolvida.
