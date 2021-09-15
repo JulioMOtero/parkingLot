@@ -11,7 +11,8 @@ import java.util.List;
 public interface CheckinRepository extends JpaRepository<CheckIn, Long> {
 
     @Query("SELECT c FROM CheckIn c " +
-            "WHERE c.dataEntrada BETWEEN :dataEntrada AND :dataSaida")
+            "WHERE c.dataSaida IS NOT NULL " +
+            "AND c.dataEntrada BETWEEN :dataEntrada AND :dataSaida")
     List<CheckIn> FindByPeriodo(Date dataEntrada, Date dataSaida);
 
 

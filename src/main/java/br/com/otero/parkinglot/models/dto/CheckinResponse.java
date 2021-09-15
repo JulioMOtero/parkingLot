@@ -10,11 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class HistoricoCheckInResponse {
+public class CheckinResponse {
+
 
     private Long id;
-    private String periodo;
-    private Boolean pago;
-    private Boolean checkout;
 
 }
