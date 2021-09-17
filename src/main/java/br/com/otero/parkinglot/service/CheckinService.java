@@ -24,7 +24,7 @@ public class CheckinService {
 
 
     public List<HistoricoCheckInResponse> obterhistorico(Date dataEntrada, Date dataSaida) {
-
+        this.validacaoDataEntradaSaida(dataEntrada, dataSaida);
         List<CheckIn> checkIns = this.checkinRepository.FindByPeriodo(dataEntrada, dataSaida);
         return checkIns.stream().map(checkIn -> {
             String tempo = (((checkIn.getDataSaida().getTime() - checkIn.getDataEntrada().getTime()) / 1000) / 60) + " minutos";
@@ -38,6 +38,16 @@ public class CheckinService {
         }).collect(Collectors.toList());
 
     }
+
+    protected void validacaoDataEntradaSaida(Date dataEntrda, Date dataSaida) {
+        if (dataEntrda == null || dataSaida == null) {
+            throw new IllegalArgumentException("data de entrada e saida devem ser preencidas");
+        }
+        if (dataEntrda.getTime() > dataSaida.getTime()) {
+            throw new IllegalArgumentException("data de entrada nao pode ser maior que a de saida");
+        }
+    }
+
 
     public CheckinResponse newCheckin(CheckinRequest newCheckin) {
         Carro carro = Carro.builder()
@@ -62,7 +72,7 @@ public class CheckinService {
             throw new BusinessException("Modelo invalido");
         }
         if (newCheckin.getBrand().isEmpty() || newCheckin.getBrand().isBlank()) {
-            throw new BusinessException("Montadora invalida");
+            throw new BusinessException("Marca invalida");
         }
 
 
@@ -75,10 +85,8 @@ public class CheckinService {
     }
 
     public void checkOut(Long id) {
-        Optional<CheckIn> checkout = Optional.ofNullable(this.checkinRepository.findById(id).orElseThrow(() -> new NotFoundException("Parking id " + id + " not found")));
-//        if (checkout.get().getPagamento() == false) {
-//            throw new BusinessException("Pagamento não realizado, pagar por favor!");
-//        }
+        Optional<CheckIn> checkout = Optional.ofNullable(this.checkinRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("id: " + id + " Não encontrado")));
 
         checkout.get().setDataSaida(new Date());
 
