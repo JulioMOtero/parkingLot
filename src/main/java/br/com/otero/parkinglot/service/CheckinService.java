@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -42,6 +41,7 @@ public class CheckinService {
     protected void validacaoDataEntradaSaida(Date dataEntrda, Date dataSaida) {
         if (dataEntrda == null || dataSaida == null) {
             throw new IllegalArgumentException("data de entrada e saida devem ser preencidas");
+
         }
         if (dataEntrda.getTime() > dataSaida.getTime()) {
             throw new IllegalArgumentException("data de entrada nao pode ser maior que a de saida");
@@ -85,27 +85,26 @@ public class CheckinService {
     }
 
     public void checkOut(Long id) {
-        Optional<CheckIn> checkout = Optional.ofNullable(this.checkinRepository.findById(id).orElseThrow(() ->
-                new NotFoundException("id: " + id + " Não encontrado")));
+        CheckIn checkout = this.checkinRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("id: " + id + " Não encontrado"));
 
-        checkout.get().setDataSaida(new Date());
+        if (!checkout.getPagamento()) {
+            throw new BusinessException("Pagamento nao realizado");
+        }
 
-        this.checkinRepository.save(checkout.get());
+        checkout.setDataSaida(new Date());
+
+        this.checkinRepository.save(checkout);
     }
 
     public void pagamento(Long id) {
-        Optional<CheckIn> checkout = this.checkinRepository.findById(id);
+        CheckIn checkout = this.checkinRepository.findById(id).orElseThrow(() -> new NotFoundException("id: " + id + " Não encontrado"));
 
-        if (checkout.isEmpty()) {
-            throw new BusinessException("CheckIn inexistente");
-        }
-
-        if (checkout.get().getPagamento()) {
+        if (checkout.getPagamento()) {
             throw new BusinessException("Pagamento já realizado");
-
         }
-        checkout.get().setPagamento(true);
+        checkout.setPagamento(true);
 
-        this.checkinRepository.save(checkout.get());
+        this.checkinRepository.save(checkout);
     }
 }
