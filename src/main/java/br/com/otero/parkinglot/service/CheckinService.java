@@ -91,6 +91,9 @@ public class CheckinService {
         if (!checkout.getPagamento()) {
             throw new BusinessException("Pagamento nao realizado");
         }
+        if (checkout.getDataSaida() != null) {
+            throw new BusinessException("checkout ja realizado");
+        }
 
         checkout.setDataSaida(new Date());
 
