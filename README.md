@@ -71,9 +71,9 @@ Construir ao menos 2 testes unitários
 - Construir um arquivo Swagger Yaml com a estrutura da API a ser desenvolvida. Pesquisar "Java Generate swagger
   automatically"
 
-###### PROXIMO PASSO
+## PROXIMO PASSO
 
-###### # Tratamento de Erro
+###### Tratamento de Erro
 
 - A API deve retornar codigos de errro de acordo com cada situaçao e significado do erro
     - Ex: checkin sem placa erro 400(bad request)

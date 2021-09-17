@@ -1,5 +1,7 @@
 package br.com.otero.parkinglot.service;
 
+import br.com.otero.parkinglot.exception.BusinessException;
+import br.com.otero.parkinglot.exception.NotFoundException;
 import br.com.otero.parkinglot.models.Carro;
 import br.com.otero.parkinglot.models.CheckIn;
 import br.com.otero.parkinglot.models.dto.CheckinRequest;
@@ -48,18 +50,35 @@ public class CheckinService {
                 .carro(carro)
                 .pagamento(false)
                 .build();
+
+
+        if (newCheckin.getPlate() == null) {
+            throw new BusinessException("Placa invalida");
+        }
+        if (newCheckin.getPlate().length() != 7) {
+            throw new BusinessException("Placa deve conter 7 digitos");
+        }
+        if (newCheckin.getModel().isEmpty() || newCheckin.getModel().isBlank()) {
+            throw new BusinessException("Modelo invalido");
+        }
+        if (newCheckin.getBrand().isEmpty() || newCheckin.getBrand().isBlank()) {
+            throw new BusinessException("Montadora invalida");
+        }
+
+
         this.checkinRepository.save(checkIn);
 
         return CheckinResponse.builder()
                 .id(checkIn.getId())
                 .build();
+
     }
 
     public void checkOut(Long id) {
-        Optional<CheckIn> checkout = this.checkinRepository.findById(id);
-        if (checkout.get().getPagamento() == false) {
-            throw new RuntimeException("Pagamento não realizado, pagar por favor!");
-        }
+        Optional<CheckIn> checkout = Optional.ofNullable(this.checkinRepository.findById(id).orElseThrow(() -> new NotFoundException("Parking id " + id + " not found")));
+//        if (checkout.get().getPagamento() == false) {
+//            throw new BusinessException("Pagamento não realizado, pagar por favor!");
+//        }
 
         checkout.get().setDataSaida(new Date());
 
@@ -70,11 +89,11 @@ public class CheckinService {
         Optional<CheckIn> checkout = this.checkinRepository.findById(id);
 
         if (checkout.isEmpty()) {
-            throw new RuntimeException("CheckIn inexistente");
+            throw new BusinessException("CheckIn inexistente");
         }
 
         if (checkout.get().getPagamento()) {
-            throw new RuntimeException("Pagamento já realizado");
+            throw new BusinessException("Pagamento já realizado");
 
         }
         checkout.get().setPagamento(true);
