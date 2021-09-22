@@ -1,6 +1,5 @@
 package br.com.otero.parkinglot.models;
 
-import br.com.otero.parkinglot.models.dto.HistoricoCheckInResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,14 +31,6 @@ public class CheckIn {
 
 
     public CheckIn(Carro carro) {
-    }
-
-    public void checkout(Date dataSaida) {
-        HistoricoCheckInResponse historico = null;
-        if (dataSaida == null) {
-            historico.setCheckout(false);
-        }
-        historico.setCheckout(true);
     }
 
 

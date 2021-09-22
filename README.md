@@ -83,5 +83,4 @@ Construir ao menos 2 testes unitários
 
 - Validações do Request -Ex: validar o tamanho da placa -validar se passou as datas ( se nao erro 400)
 
-Estudar Regex videoOptional<CheckIn> checkout = this.checkinRepository.findById(id); if (checkout.isEmpty()) { throw new
-NotFoundException("id: " + id + " Não encontrado"); }
+Estudar Regex video

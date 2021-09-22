@@ -110,4 +110,10 @@ public class CheckinService {
 
         this.checkinRepository.save(checkout);
     }
+
+//    public String data() {
+//        return (new Date().getTime() / 1000 / 60) + "minutos";
+////         String tempo = (((checkIn.getDataSaida().getTime() - checkIn.getDataEntrada().getTime()) / 1000) / 60) + " minutos";
+//    }
+
 }

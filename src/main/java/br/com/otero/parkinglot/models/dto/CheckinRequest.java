@@ -1,11 +1,13 @@
 package br.com.otero.parkinglot.models.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
+@Builder
 public class CheckinRequest {
 
     @NotNull
@@ -20,7 +22,7 @@ public class CheckinRequest {
     @NotEmpty
     private String plate;
 
-    
+
     private Boolean pagamento;
 
 }
