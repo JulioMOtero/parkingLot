@@ -25,7 +25,7 @@ public class CheckIn {
     private Carro carro;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataEntrada;
-    private Boolean pagamento = true;
+    private Boolean pagamento = false;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataSaida;
 
